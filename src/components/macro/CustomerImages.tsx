@@ -55,9 +55,9 @@ export const CustomerImages = (props: CustomerImagesProps) => {
     );
   };
 
-  const getComponentsInColumn = (numberOfColumns: number) => {
+  const getComponentsInColumn = (numOfRows: number) => {
     const rowNumbers = Array.from(
-      { length: numberOfColumns },
+      { length: numOfRows },
       (_, index) => index + 1
     );
     return (
@@ -67,7 +67,7 @@ export const CustomerImages = (props: CustomerImagesProps) => {
     );
   };
 
-  return getComponentsInColumn(numberOfColumns);
+  return getComponentsInColumn(numberOfRows);
 };
 
 export const styles: { [key: string]: React.CSSProperties } = {

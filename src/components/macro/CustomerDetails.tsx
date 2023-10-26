@@ -24,6 +24,7 @@ export const CustomerDetails = () => {
         />
         <CustomerImages
           customer_id={currentCustomer.customer_id}
+          // Give number of rows and Columns to show grid of that dimension...
           numberOfColumns={3}
           numberOfRows={3}
         />
