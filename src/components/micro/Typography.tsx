@@ -39,13 +39,9 @@ export const Typography = (props: TypographyProps) => {
   }
   style = { ...style, ...styleProps };
 
-  const onClickHandler = () => {
-    if (onClick) onClick();
-  };
-
   return (
     <>
-      <div onClick={onClickHandler} style={style}>
+      <div onClick={onClick} style={style}>
         {text}
       </div>
     </>

@@ -4,15 +4,17 @@ import { initialImages } from "../../data/initialImages";
 
 export type CustomerImagesProps = {
   customer_id: string;
+  numberOfColumns?: number;
+  numberOfRows?: number;
 };
 
 export const CustomerImages = (props: CustomerImagesProps) => {
-  const { customer_id } = props;
+  const { customer_id, numberOfColumns = 3, numberOfRows = 3 } = props;
   const [images, setImages] = useState<string[]>(initialImages.images);
 
   useEffect(() => {
     const timer = setInterval(() => {
-      const IDs = Array.from({ length: 9 }, () =>
+      const IDs = Array.from({ length: numberOfColumns * numberOfRows }, () =>
         Math.floor(Math.random() * 1000)
       );
       let currImage: string[] = [];
@@ -28,25 +30,17 @@ export const CustomerImages = (props: CustomerImagesProps) => {
       setImages(initialImages.images);
       clearInterval(timer);
     };
-  }, [customer_id]);
+  }, [customer_id, numberOfColumns, numberOfRows]);
 
-  return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-around",
-      }}
-    >
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-around",
-        }}
-      >
+  const getComponentsInRow = (rowNumber: number) => {
+    return (
+      <div style={styles.rowAligned} key={rowNumber}>
         {images
-          .filter((item, index) => index < 3)
+          .filter(
+            (item, index) =>
+              index >= numberOfColumns * (rowNumber - 1) &&
+              index < numberOfColumns * rowNumber
+          )
           .map((item: any) => {
             return (
               <Visual
@@ -58,46 +52,33 @@ export const CustomerImages = (props: CustomerImagesProps) => {
             );
           })}
       </div>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-around",
-        }}
-      >
-        {images
-          .filter((item, index) => index >= 3 && index < 6)
-          .map((item: any) => {
-            return (
-              <Visual
-                key={customer_id + Math.random()}
-                src={item}
-                alt={`customer_id ` + customer_id + `'s Image`}
-                styleProps={{ margin: 24 }}
-              />
-            );
-          })}
+    );
+  };
+
+  const getComponentsInColumn = (numberOfColumns: number) => {
+    const rowNumbers = Array.from(
+      { length: numberOfColumns },
+      (_, index) => index + 1
+    );
+    return (
+      <div style={styles.columnAligned}>
+        {rowNumbers.map((rowNumber) => getComponentsInRow(rowNumber))}
       </div>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-around",
-        }}
-      >
-        {images
-          .filter((item, index) => index >= 6 && index < 9)
-          .map((item: any) => {
-            return (
-              <Visual
-                key={customer_id + Math.random()}
-                src={item}
-                alt={`customer_id ` + customer_id + `'s Image`}
-                styleProps={{ margin: 24 }}
-              />
-            );
-          })}
-      </div>
-    </div>
-  );
+    );
+  };
+
+  return getComponentsInColumn(numberOfColumns);
+};
+
+export const styles: { [key: string]: React.CSSProperties } = {
+  rowAligned: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-around",
+  },
+  columnAligned: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-around",
+  },
 };

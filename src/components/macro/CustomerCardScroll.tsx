@@ -8,16 +8,7 @@ export const CustomerCardScroll = () => {
     (state: currentCustomerReducerType) => state.currentCustomer
   );
   return (
-    <div
-      style={{
-        height: "90vh",
-        width: "30vw",
-        overflowY: "scroll",
-        border: "0.5px solid #DCDCDC",
-        borderLeft: 0,
-        borderRight: 0,
-      }}
-    >
+    <div style={styles.scrollContainer}>
       {customerDetails.details.map((item) => {
         return (
           <CustomerCard
@@ -31,4 +22,15 @@ export const CustomerCardScroll = () => {
       })}
     </div>
   );
+};
+
+export const styles: { [key: string]: React.CSSProperties } = {
+  scrollContainer: {
+    height: "90vh",
+    width: "30vw",
+    overflowY: "scroll",
+    border: "0.5px solid #DCDCDC",
+    borderLeft: 0,
+    borderRight: 0,
+  },
 };

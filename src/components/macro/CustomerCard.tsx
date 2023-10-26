@@ -24,14 +24,8 @@ export const CustomerCard = (props: CustomerCardProps) => {
   return (
     <div
       style={{
-        display: "flex",
-        flexDirection: "column",
-        padding: 16,
-        border: "0.5px solid #DCDCDC",
+        ...styles.cardContainer,
         backgroundColor: is_selected ? "#DCDCDC" : "white",
-        borderLeft: 0,
-        borderRight: 0,
-        cursor: "pointer",
       }}
       onClick={onCustomerCardClick}
     >
@@ -39,9 +33,21 @@ export const CustomerCard = (props: CustomerCardProps) => {
         text={name}
         size="small"
         textAlign="left"
-        styleProps={{ paddingBottom: 16 }}
+        styleProps={{ paddingBottom: 16, margin: 0 }}
       />
       <Typography text={detailsShown} size="extra-small" textAlign="left" />
     </div>
   );
+};
+
+export const styles: { [key: string]: React.CSSProperties } = {
+  cardContainer: {
+    display: "flex",
+    flexDirection: "column",
+    padding: 16,
+    border: "0.5px solid #DCDCDC",
+    borderLeft: 0,
+    borderRight: 0,
+    cursor: "pointer",
+  },
 };
