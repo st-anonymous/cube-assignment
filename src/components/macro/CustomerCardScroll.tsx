@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { customerDetails } from "../../data/customerDetails";
 import { currentCustomerReducerType } from "../../types/customer";
-import { CustomerCard } from "./CustomerCard";
+import CustomerCard from "./CustomerCard";
 
 export const CustomerCardScroll = () => {
   const currentCustomer = useSelector(

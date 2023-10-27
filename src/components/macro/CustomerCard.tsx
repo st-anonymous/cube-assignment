@@ -1,3 +1,4 @@
+import React from "react";
 import { setCurrentCustomer } from "../../store/actions/currentCustomer";
 import { Typography } from "../micro/Typography";
 import { useDispatch } from "react-redux";
@@ -9,7 +10,7 @@ export type CustomerCardProps = {
   is_selected: boolean;
 };
 
-export const CustomerCard = (props: CustomerCardProps) => {
+const CustomerCard = (props: CustomerCardProps) => {
   const { customer_id, name, details, is_selected } = props;
 
   const dispatch = useDispatch();
@@ -51,3 +52,5 @@ export const styles: { [key: string]: React.CSSProperties } = {
     cursor: "pointer",
   },
 };
+
+export default React.memo(CustomerCard);
